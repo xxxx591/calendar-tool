@@ -18,7 +18,7 @@
             :data-day="week.day"
           >
             <div class="week-day" :class="{othermonth:week.othermonth}">
-              <span style="padding-top:2px;display:block;">
+              <span style="padding-top:10px;display:block;">
                 <i
                   class="day"
                   :class="{ischecked:checkedDay==week.date,othermonth:week.othermonth,istoday:week.istoday,weekend:week.nongli.ncWeek=='星期日'||week.nongli.ncWeek=='星期六'}"
@@ -40,6 +40,7 @@
                   :class="remind.color"
                 >{{remind.title}}</i>
               </div>
+              <i class="show-months" v-if="week.showMonths">{{week.month+'月'}}</i>
             </div>
           </li>
         </ul>
@@ -156,7 +157,8 @@ export default {
           ischecked: false,
           othermonth: _month != month,
           isWeekend: false,
-          hasRicheng: _day == 8 ? true : false
+          hasRicheng: _day == 8 ? true : false,
+          showMonths: _day == 1 ? true : false
         });
       }
       // weekArr.push(week);
@@ -347,7 +349,6 @@ export default {
   flex-wrap: wrap;
 }
 .month li {
-  overflow: hidden;
   position: relative;
   width: 14.28%;
   height: 55px;
@@ -359,9 +360,15 @@ export default {
   text-align: center;
   border: 0;
   line-height: 10px;
-  overflow: hidden;
   z-index: 1;
   height: 100%;
+}
+.week-day .show-months {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 10px;
+  color: #6c7880;
 }
 .week-day i {
   display: block;
@@ -372,11 +379,11 @@ export default {
   height: 14px;
 }
 .week-day .hasRicheng {
-width: 5px;
-    height: 5px;
-    background: #b0b9bf;
-    border-radius: 50%;
-    margin: 5px auto;
+  width: 5px;
+  height: 5px;
+  background: #b0b9bf;
+  border-radius: 50%;
+  margin: 5px auto;
 }
 .week-day .day {
   line-height: 26px;
